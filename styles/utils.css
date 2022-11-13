@@ -1,0 +1,55 @@
+.cl-primary-hover:hover{
+    color: #5b47fb !important;
+    fill: #5b47fb !important;
+}
+
+.cl-black-hover:hover{
+    color: #1c273c !important;
+    fill: #1c273c !important;
+}
+
+.ft-10{
+    font-size: 10px;
+}
+
+.ft-22{
+    font-size: 22px;
+}
+
+.w-98{
+    width: 98%;
+}
+
+
+/* Borders  */
+
+.card-border{
+    border: 1px solid #d4d4d4;
+    padding: 20px;
+}
+
+.card-white{
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 3px 8px;
+}
+
+.bm-light-border{
+    border-bottom: 1px solid rgb(221, 221, 221);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.h-92{
+    height: 92%;
+}
+
+
+/* Border  */
+
+.br-grey-bottom{
+  border-bottom: solid 1.5px #eeeaea ;
+}
+
+
+.br-grey-top{
+  border-top: solid 1.5px #eeeaea ;
+}

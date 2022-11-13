@@ -1,0 +1,17 @@
+1- init filter: 
+REQUEST: GET
+ENDPOINT: https://us-central1-exepnoproject.cloudfunctions.net/bisees-dashboard
+
+2- Get All Tabs Data: 
+REQUEST: POST
+ENDPOINT: https://us-central1-exepnoproject.cloudfunctions.net/bisees-dashboard?tab=CM,HA,F
+BODY: {
+  "atmId": 3,
+  "from": "2020-03-04",
+  "until": "2022-03-04"
+}
+
+
+ip: 35.241.156.19
+user: root
+pwd: spilios2022UI

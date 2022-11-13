@@ -1,0 +1,399 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+
+/* NavBar  */
+
+.Navbar{
+   border-bottom: 1px solid rgb(228, 228, 228); 
+   box-shadow: rgba(216, 216, 216, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.drawer-header{
+    height: 60px;
+    border-bottom: 1px solid rgb(228, 228, 228); 
+    box-shadow: rgba(216, 216, 216, 0.15) 1.95px 1.95px 2.6px;
+    margin-bottom: 50px;
+}
+
+.nav-svg-icon{
+    width: 2em; 
+    height: 2em;
+    vertical-align: middle;
+    fill: #333333;
+    overflow: hidden;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.nav-logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 28px;
+    font-family: Poppins,sans-serif;
+    letter-spacing: -1.5px;
+    color: #5b47fb;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+.nav-link {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 20px 0px;
+  margin: 0px 20px;
+  display: inline-block;
+  position: relative;
+  opacity: 0.85;
+  font-family: 'Rubik', sans-serif;
+  border-bottom: 2.5px solid #fff ;
+}
+
+.nav-link svg{
+    margin-right: 10px;
+}
+
+.drawer-header svg{
+    margin-top: 10px;
+    font-size: 22px;
+    color: #928e8e;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  color: #5b47fb;
+}
+
+.nav-link::before {
+  border-radius: 2px;
+  height: 3.5px;
+  content: "";
+  position: absolute;
+  background-color: #5b47fb;
+  transition: 200ms;
+}
+
+.nav-link-fade-up::before {
+  width: 100%;
+  bottom: 5px;
+  opacity: 0;
+}
+
+.nav-link-fade-up:hover::before {
+  transition: 400ms;
+  bottom: 15px;
+  opacity: 1;
+}
+
+.current-nav{
+    opacity: 1 !important;
+    color: #5b47fb;
+    border-bottom: 3px solid #5b47fb !important;
+    transition: 200ms;
+}
+
+.current-nav:hover{
+    border-bottom: 2.5px solid #fff !important;
+    transition: 200ms;
+}
+
+
+/* Header  */
+
+.head-right-border{
+    border-right: 1px solid #d4d4d4;
+}
+
+.btn-head,
+.btn-head-dialog{
+    background-color: #5E37A6;
+    color: #fff;
+    height: fit-content;
+    padding: 7px 16px;
+}
+
+.btn-head-dialog{
+  padding: 7px 25px;
+}
+
+.btn-head:hover{
+    background-color: #533292;
+}
+
+.head-body{
+    border-bottom:1px solid #d4d4d4 ;
+}
+
+.head-body a{
+    color: #1c273c;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    border-right: 1px solid #d4d4d4 ;
+    padding: 5px 10px;
+    margin: 0px !important;
+}
+
+.head-body svg{
+   color: #747d91;
+   font-size: 13px;
+   margin-right: 7px;
+}
+
+.head-body a:hover,
+.head-body a:hover svg{
+    color: #5b47fb !important;
+    font-weight: 600;
+}
+
+
+.head-body div:first-child a:first-child {
+  padding-left: 0px;
+}
+
+.head-body div:first-child a:last-child {
+  border: 0;
+}
+
+.head-body div:last-child a:last-child {
+  border: 0;
+}
+
+.filter-body{
+  padding-top: 30px;
+  height: calc(100vh - 130px);
+  overflow: auto;
+  overflow-y: scroll;
+
+}
+
+
+.filter-body::-webkit-scrollbar-track{
+  	background-color: rgb(255, 255, 255) !important;
+}
+
+.filter-body::-webkit-scrollbar
+{
+	width: 5px;
+}
+
+.filter-body::-webkit-scrollbar-thumb
+{
+	background-color: #533292;
+	border: 0;
+}
+
+
+
+.filter-footer{
+  border-top:1px solid #d4d4d4 ;
+}
+
+.filter-footer h1,
+.filter-range  h1 {
+  border-bottom: 2px solid black ;
+  font-family: 'Rubik', sans-serif;
+  line-height: 18px;
+  height: fit-content;
+  cursor: pointer;
+  color: black;
+}
+
+.filter-footer h1:hover,
+.filter-range  h1:hover{
+  color: #533292;
+  border-color: #533292;
+}
+
+.filter-logo{
+    font-weight: 700;
+    font-size: 20px;
+    font-family: Poppins,sans-serif;
+    letter-spacing: -0.5px;
+    color: #5b47fb;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.filter-open{
+  
+  position: fixed;
+  color: white;
+  background-color: #5E37A6;
+  font-size: 24px;
+  padding: 10px 15px;
+  right: 20px;
+  top: 85vh;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+
+  z-index: 2000;
+
+}
+
+.filter-open:hover{
+  background-color: #533292;
+}
+
+.filter-header{
+    margin-bottom: 0px !important;
+}
+
+
+
+/* Cards  */
+
+.meta-card{
+  padding: 21px;
+  border-radius: 1.25rem;
+}
+
+.meta-card .bg-icon svg{
+  font-size: 28px;
+  padding: 22.5px 28px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+
+/* Progress Bar  */
+
+.bar-danger .MuiLinearProgress-bar{
+    background-color: #FF2C53 !important;
+}
+
+.bar-warning .MuiLinearProgress-bar{
+    background-color:#FFCE78 !important;
+
+  }
+
+.bar-success .MuiLinearProgress-bar{
+    background-color:#00A15D !important;
+}
+
+.bar-pink .MuiLinearProgress-bar{
+    background-color: #D653C1 !important;
+}
+
+.bar-blue .MuiLinearProgress-bar{
+    background-color: #3366ff !important;
+}
+
+/* Charts */
+
+.line-performance{
+  height: 600px;
+}
+
+.line-features{
+  height: 800px;
+}
+
+.line-features text{
+  font-size: 12px !important;
+}
+
+.line-total  text{
+  font-size: 12px !important;
+}
+
+/* Footer  */
+
+.footer{
+  border-top: 1px solid #d4d4d4;
+}
+
+.dialog{
+  width: 600px ;
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
+}
+
+.Mui-focused .MuiOutlinedInput-notchedOutline{
+  border-color:#533292 !important;
+  color: #533292 !important;
+}
+
+.Mui-focused{
+  color: #533292 !important;
+}
+
+/* Date Range  */
+
+.date-range input {
+  width: 100%;
+  height: 40px;
+  padding: 10px 15px ;
+  font-size: 14.5px;
+  color: #666666;
+  border: 1px solid #b3b3b3;
+  border-radius: 5px;
+}
+
+.date-range input:focus {
+ border-color: #00A15D !important;
+}
+
+.data-seven svg{
+  padding: 12px;
+  color: white;
+  margin-right: 12px;
+}
+
+/* Calendar  */
+
+.rep-calendar{
+  padding: 20px;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid #b3b3b3;
+}
+
+.rep-calendar:hover{
+  border-color: #1c273c;
+}
+
+.rep-calendar p {
+  padding: 10px 0px;
+  border-radius: 50%;
+}
+
+.rep-calendar-active{
+  background-color: rgba(83, 49, 144,0.65);
+  color: white;
+  cursor: pointer;
+}
+
+.rep-calendar-active:hover{
+  background-color: rgba(83, 49, 144,0.75);
+}
+
+.rep-calendar-today{
+  cursor: pointer;
+  color: #fd7200;
+  font-weight: bold;
+}
+
+
+/* Loading Current  */
+
+.loading-current-atm{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 2000;
+}
+
+
+body:has(.loading-current-atm ) {
+ overflow: hidden;
+}
