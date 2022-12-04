@@ -118,14 +118,14 @@ const Performance = ({ current, metaData, total, defaultAtmF }) => {
 
             {/* Performance  */}
             <div className='w-full flex justify-center mt-8' id='section-performance'>
-                <div className='line-performance w-11/12 card-border'>
+                <div className='line-performance w-11/12 card-border overflow-y-hidden overflow-x-auto md:overflow-x-hidden'>
 
-                    <div className='h-1/6 mb-5 lg:mb-auto'>
+                    <div className='h-1/6 mb-5 lg:mb-auto min-w-[700px] md:min-w-[0px]'>
                         <h3 className='ml-5 font-bold text-[#1c273c] text-lg'> Test Performance - ATM Code: {defaultAtmF.code} - {from} - {until}</h3>
                         <p className='ml-5 mt-2 text-sm text-slate-500'> This Prediction Views report is based on current Atm. </p>
                     </div>
 
-                    <div className='h-5/6'>
+                    <div className='h-5/6 min-w-[700px] md:min-w-[0px]'>
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart width={500} height={1000} data={data}>
                                 <CartesianGrid strokeDasharray="3 3" />

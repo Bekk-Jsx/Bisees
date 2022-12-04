@@ -10,7 +10,7 @@ import moment from 'moment';
 
 import { filterHistorical } from '../redux/actions/historicalActions'
 
-const Historical = ({ settings: { defaultAtmH, from, until, loadingH, atms }, historical: { currentDaily, currentTotal, currentMetaData, currentYearly, currentTopAtmsByWithdr }, filterHistorical }) => {
+const Historical = ({ settings: { surviveAtm, defaultAtmH, from, until, loadingH, atms }, historical: { currentDaily, currentTotal, currentMetaData, currentYearly, currentTopAtmsByWithdr }, filterHistorical }) => {
 
     const [startDate, setStartDate] = useState(moment(from).format('MM/DD/YYYY'));
     const [endDate, setEndDate] = useState(moment(until).format('MM/DD/YYYY'));
@@ -26,6 +26,12 @@ const Historical = ({ settings: { defaultAtmH, from, until, loadingH, atms }, hi
 
     }, [currentTopAtmsByWithdr])
 
+
+    useEffect(() => {
+        if (surviveAtm !== defaultAtmH.atmId) {
+            filterHistorical(surviveAtm, moment(startDate).format('YYYY-MM-DD'), moment(endDate).format('YYYY-MM-DD'), atms);
+        }
+    }, [])
 
 
     return (

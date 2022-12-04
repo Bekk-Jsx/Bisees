@@ -117,12 +117,23 @@
     padding: 7px 16px;
 }
 
+.btn-head-white{
+    background-color: #e6e3e3;
+    height: fit-content;
+    padding: 7px 16px;
+}
+
+
 .btn-head-dialog{
   padding: 7px 25px;
 }
 
 .btn-head:hover{
     background-color: #533292;
+}
+
+.btn-head-white:hover{
+    background-color:  #d3d1d1;
 }
 
 .head-body{
@@ -397,3 +408,13 @@
 body:has(.loading-current-atm ) {
  overflow: hidden;
 }
+
+.marker-maps{
+  color: #00A15D !important;
+  background-color: #00A15D !important;
+  fill: #00A15D !important;
+  stroke: #00A15D !important;
+  padding: 20px;
+  display: none !important;
+}
+

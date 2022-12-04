@@ -85,12 +85,12 @@ const Features = ({ current, tops, defaultAtmF }) => {
                     </div>
                 </div>
 
-                <div className="w-full lg:w-1/2 card-border line-features">
-                    <div className='h-1/6 lg:mb-auto'>
+                <div className="w-full lg:w-1/2 card-border line-features overflow-y-hidden overflow-x-auto md:overflow-x-hidden">
+                    <div className='h-1/6 lg:mb-auto min-w-[700px] md:min-w-[0px]'>
                         <h3 className='ml-5 font-bold text-[#1c273c] text-lg'> Top 10 ATMs </h3>
                         <p className='ml-5 mt-2 text-sm text-slate-500'> Atms that got less RMSE on the Test.  </p>
                     </div>
-                    <div className='h-5/6'>
+                    <div className='h-5/6 min-w-[700px] md:min-w-[0px]'>
                         <ResponsiveContainer width="100%" height="100%">
 
                             <BarChart

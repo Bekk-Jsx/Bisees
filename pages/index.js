@@ -1,31 +1,22 @@
+import React, { useEffect } from "react"
 import { connect } from 'react-redux';
 import Head from 'next/head'
 
 
-import Prediction from '../jsx/components/forecasts/Prediction';
-import Performance from '../jsx/components/forecasts/Performance';
-import Features from '../jsx/components/forecasts/Features';
+import Locations from '../jsx/components/home/Locations';
+
+import { selectLocation, filterLocation } from '../redux/actions/locationsActions'
+import { setSurviveAtm } from '../redux/actions/settingsActions'
 
 
-const App = ({ settings: { loadingF, defaultAtmF }, forecasts: { currentPrediction, currentPerformanceData, currentPerformanceMetaData, currentFeature, currentTopAtms } }) => {
+const App = ({ settings: { surviveAtm, defaultAtmL, loadingL, atms }, locations: { mapZoom, mapPosition, locations, currentLocations, branches, currentBranches, remaining, currentrRemaining, estimated, currentrEstimated }, selectLocation, setSurviveAtm, filterLocation }) => {
 
 
-  let total = 0;
-  let lineData = [];
-
-  currentPrediction.forEach(elm => {
-
-    // calculate total 
-    total += elm.prediction
-
-    // define data line
-    let date = new Date(elm.date);
-    let createdAt = date.toLocaleString('default', { day: 'numeric', month: 'short' });
-    lineData.push({ name: createdAt, uv: elm.prediction })
-  });
-
-
-
+  useEffect(() => {
+    if (surviveAtm !== defaultAtmL.atmId) {
+      filterLocation(surviveAtm)
+    }
+  }, [])
 
   return (
     <div>
@@ -38,7 +29,7 @@ const App = ({ settings: { loadingF, defaultAtmF }, forecasts: { currentPredicti
 
       {/* Loading current Atm  */}
 
-      <div className={loadingF ? 'loading-current-atm' : 'hidden'}>
+      <div className={loadingL ? 'loading-current-atm' : 'hidden'}>
         <div role="status" className='grid h-screen place-items-center'>
           <svg className="inline mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -48,15 +39,10 @@ const App = ({ settings: { loadingF, defaultAtmF }, forecasts: { currentPredicti
         </div>
       </div>
 
-
       {/* Page Elements */}
 
+      <Locations mapPosition={mapPosition} mapZoom={mapZoom} locations={locations} selected={currentLocations} branches={branches} currentBranches={currentBranches} remaining={remaining} currentrRemaining={currentrRemaining} estimated={estimated} currentrEstimated={currentrEstimated} selectLocation={selectLocation} setSurviveAtm={setSurviveAtm} />
 
-      <Prediction current={currentPrediction} total={total} data={lineData} defaultAtmF={defaultAtmF} />
-
-      <Performance current={currentPerformanceData} metaData={currentPerformanceMetaData} total={total} defaultAtmF={defaultAtmF} />
-
-      <Features current={currentFeature} tops={currentTopAtms} defaultAtmF={defaultAtmF} />
 
 
     </div>
@@ -64,10 +50,12 @@ const App = ({ settings: { loadingF, defaultAtmF }, forecasts: { currentPredicti
 }
 
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  selectLocation, setSurviveAtm, filterLocation
+};
 
 const mapStateToProps = state => ({
-  forecasts: state.forecasts,
+  locations: state.locations,
   settings: state.settings,
 });
 

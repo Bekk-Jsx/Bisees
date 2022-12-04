@@ -29,11 +29,11 @@ const cashSlice = createSlice({
             state.error = null;
             state.message = null;
         },
-        setMessage: (state) => {
+        setMessage: (state, action) => {
             state.message = action.payload;
             state.error = null;
         },
-        setError: (state) => {
+        setError: (state, action) => {
             state.message = null;
             state.error = action.payload;
         },

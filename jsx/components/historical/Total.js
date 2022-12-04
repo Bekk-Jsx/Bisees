@@ -139,14 +139,14 @@ const Total = ({ currentTotal, currentMetaData, startDate, endDate, from, until,
             {/* Total Data  */}
 
             <div className='w-full flex justify-center mt-8' id='section-total'>
-                <div className='line-performance w-11/12 card-border line-total'>
+                <div className='line-performance w-11/12 card-border line-total overflow-y-hidden overflow-x-auto md:overflow-x-hidden'>
 
-                    <div className='h-1/6 mb-5 lg:mb-auto'>
+                    <div className='h-1/6 mb-5 lg:mb-auto lg:mb-auto min-w-[700px] md:min-w-[0px]'>
                         <h3 className='ml-5 font-bold text-[#1c273c] text-lg'> Total Daily Withdrawal Amount: {fromAt} - {untilAt}</h3>
                         <p className='ml-5 mt-2 text-sm text-slate-500'> The Views report is based on current Atm. </p>
                     </div>
 
-                    <div className='h-5/6 mt-4'>
+                    <div className='h-5/6 mt-4 lg:mb-auto min-w-[700px] md:min-w-[0px]'>
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart width={500} height={1000} data={data}>
                                 <CartesianGrid strokeDasharray="3 3" />

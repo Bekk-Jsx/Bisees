@@ -2,28 +2,6 @@
 
 @media only screen and (max-width: 767px) {
 
-    .Navbar{
-        height: 60px;
-    }
-
-    .nav-link {
-        font-size: 18px;
-        padding: 0 0 0 20px !important;
-        margin: 0 0 20px 0 !important;
-        font-family: 'Rubik', sans-serif;
-        border-left: 5px solid #fff ;
-    }
-
-    .drawer-current-nav{
-        color: #5b47fb;
-        border-left: 5px solid #5b47fb !important;
-        border-bottom: 0 !important;
-    }
-
-    .drawer-current-nav:hover{
-        border-bottom: 0 !important;
-    }
-
     .line-performance{
         height: 500px;
     }
@@ -36,8 +14,44 @@
         top: 90vh;
     }
 
-
 }
+
+@media only screen and (max-width: 1024px) {
+
+    .Navbar{
+        height: 60px;
+    }
+
+    .nav-link {
+        font-size: 18px;
+        padding: 0 0 0 20px !important;
+        margin: 0 0 20px 0 !important;
+        font-family: 'Rubik', sans-serif;
+        border-left: 5px solid #fff ;
+    }
+
+
+    .drawer-current-nav{
+        color: #5b47fb;
+        border-left: 5px solid #5b47fb !important;
+        border-bottom: 0 !important;
+    }
+
+    .drawer-current-nav:hover{
+        border-bottom: 0 !important;
+    }
+}
+
+@media only screen and (min-width: 640px) and (max-width: 1024px) {
+
+    .rep-calendar p {
+        padding: 35px 0px !important;
+        border-radius: 50%;
+        font-size: 23px !important;
+    }
+}
+
+
 
 @media only screen and (min-width: 1400px) {
 
@@ -48,14 +62,20 @@
     .rep-calendar p {
         padding: 15px 0px !important;
         border-radius: 50%;
+        font-size: 17px;
     }
-
-    /* .line-features{
-        height: 1000px;
-    } */
 
 }
 
+@media only screen and (min-width: 1600px) {
+
+    .rep-calendar p {
+        padding: 20px 0px !important;
+        border-radius: 50%;
+        font-size: 20px;
+    }
+
+}
 
 @media only screen and (min-height: 800px) {
 

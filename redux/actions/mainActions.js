@@ -1,3 +1,4 @@
+import { locations } from '../reducers/locationsReducer'
 import { forecasts } from '../reducers/forecastsReducer'
 import { historical } from '../reducers/historicalReducer'
 import { cash } from '../reducers/cashReducer'
@@ -77,20 +78,50 @@ export const getAllData = () => async dispatch => {
 
 
         dispatch(settings.getAllFilterSettings({
-            atms: atms, cities, branches, types, defaultAtm, from: config.DEFAULT_FROM, until: config.DEFAULT_UNTIL, fromCash: config.DEFAULT_FROM, untilCash: config.DEFAULT_UNTIL,
+            atms: atms, cities, branches, types, defaultAtm, from: config.DEFAULT_FROM, until: config.DEFAULT_UNTIL,
+            fromCash: config.DEFAULT_FROM, untilCash: config.DEFAULT_UNTIL, surviveAtm: config.DEFAULT_ATM
         }));
 
 
-        const res2 = await axios.post(`https://us-central1-exepnoproject.cloudfunctions.net/bisees-dashboard?tab=CM,HA,F`, {
-            "atmId": config.DEFAULT_ATM,
-            "from": config.DEFAULT_FROM,
-            "until": config.DEFAULT_UNTIL,
-        });
+        let casheData = {};
+
+
+        casheData = JSON.parse(localStorage.getItem('BiseesData')) ? JSON.parse(localStorage.getItem('BiseesData')) : {};
+
+
+
+        if (casheData?.data?.addedAt) {
+            casheData.data.addedAt = new Date(casheData?.data?.addedAt);
+
+            casheData.data.addedAt.setHours(casheData.data.addedAt.getHours() + 1);
+        }
+
+
+        if (!casheData?.data || (new Date() > casheData?.data?.addedAt)) {
+
+            const res2 = await axios.post(`https://us-central1-exepnoproject.cloudfunctions.net/bisees-dashboard?tab=CM,HA,F,EC`, {
+                "atmId": config.DEFAULT_ATM,
+                "from": config.DEFAULT_FROM,
+                "until": config.DEFAULT_UNTIL,
+            });
+
+            casheData.data = res2.data;
+
+
+            localStorage.setItem('BiseesData', JSON.stringify({ data: { ...res2.data, addedAt: new Date() } }));
+
+
+        }
+
+
+        dispatch(locations.getAllLocations({
+            locations: casheData?.data.EC,
+        }));
 
 
         let top10 = [];
 
-        res2.data.F.topAtmsByRMSE.forEach(elm => {
+        casheData?.data.F.topAtmsByRMSE.forEach(elm => {
 
             let current = includesAtm(res.data, Number(elm.atmId));
 
@@ -100,17 +131,17 @@ export const getAllData = () => async dispatch => {
 
 
         dispatch(forecasts.getAllForecasts({
-            feature: res2.data.F.featureImportances,
-            prediction: res2.data.F.prediction,
-            performanceData: res2.data.F.testPreformance.data,
-            performanceMetaData: res2.data.F.testPreformance.metadata,
+            feature: casheData?.data.F.featureImportances,
+            prediction: casheData?.data.F.prediction,
+            performanceData: casheData?.data.F.testPreformance.data,
+            performanceMetaData: casheData?.data.F.testPreformance.metadata,
             topAtms: top10
         }));
 
 
         let top5 = [];
 
-        res2.data.HA.topAtmsByWithdrAmnt.forEach(elm => {
+        casheData?.data.HA.topAtmsByWithdrAmnt.forEach(elm => {
 
             let current = includesAtm(res.data, elm.code, 'code');
 
@@ -119,45 +150,19 @@ export const getAllData = () => async dispatch => {
 
 
         dispatch(historical.getAllHistorical({
-            daily: res2.data.HA.dailyWithdrAmnt,
-            metaData: res2.data.HA.metadata,
+            daily: casheData?.data.HA.dailyWithdrAmnt,
+            metaData: casheData?.data.HA.metadata,
             topAtmsByWithdr: top5,
-            total: res2.data.HA.totalDailyWithdrAmnt,
-            yearly: res2.data.HA.yearlyWithdrAmnt
+            total: casheData?.data.HA.totalDailyWithdrAmnt,
+            yearly: casheData?.data.HA.yearlyWithdrAmnt
         }));
 
 
         dispatch(cash.getAllCash({
-            metaData: res2.data.CM.metadata,
-            nextFulfill: res2.data.CM.nextFulfillDates,
-            replenishment: res2.data.CM.replenishmentDates,
+            metaData: casheData?.data.CM.metadata,
+            nextFulfill: casheData?.data.CM.nextFulfillDates,
+            replenishment: casheData?.data.CM.replenishmentDates,
         }));
-
-
-        // dispatch(forecasts.getAllForecasts({
-        //     feature: forecastsData.featureImportances,
-        //     prediction: forecastsData.prediction,
-        //     performanceData: forecastsData.testPreformance.data,
-        //     performanceMetaData: forecastsData.testPreformance.metadata,
-        //     topAtms: forecastsData.topAtmsByRMSE
-        // }));
-
-
-
-        // dispatch(historical.getAllHistorical({
-        //     daily: historicalData.dailyWithdrAmnt,
-        //     metaData: historicalData.metadata,
-        //     topAtmsByWithdr: historicalData.topAtmsByWithdrAmnt,
-        //     total: historicalData.totalDailyWithdrAmnt,
-        //     yearly: historicalData.yearlyWithdrAmnt
-        // }));
-
-
-        // dispatch(cash.getAllCash({
-        //     metaData: cashData.metadata,
-        //     nextFulfill: cashData.nextFulfillDates,
-        //     replenishment: cashData.replenishmentDates,
-        // }));
 
 
     } catch (err) {

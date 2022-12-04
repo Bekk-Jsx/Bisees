@@ -9,10 +9,13 @@ import { getAllData } from '../redux/actions/mainActions'
 import { filterForecasts } from '../redux/actions/forecastsActions'
 import { filterHistorical } from '../redux/actions/historicalActions'
 import { filterCash } from '../redux/actions/cashActions'
+import { filterLocation, clearFilter } from '../redux/actions/locationsActions'
 import Footer from './layout/Footer';
 
 
-const App = ({ settings: { atms, cities, branches, types, defaultAtmF, defaultAtmH, defaultAtmC, from, until, fromCash, untilCash, loadingSettings, loadingF, loadingH, loadingC, error }, forecasts: { loadingForecasts }, historical: { loadingHistorical }, cash: { loadingCash }, Component, pageProps, getAllData, filterForecasts, filterHistorical, filterCash, }) => {
+const App = ({ settings: { atms, cities, branches, types, defaultAtmL, defaultAtmF, defaultAtmH, defaultAtmC, from, until, fromCash, untilCash, loadingSettings, loadingF, loadingH, loadingC, loadingL, error }, locations: { loadingLocations }, forecasts: { loadingForecasts }, historical: { loadingHistorical }, cash: { loadingCash }, Component, pageProps, getAllData, filterForecasts, filterHistorical, filterCash, filterLocation, clearFilter, }) => {
+
+
 
     useEffect(() => {
 
@@ -25,7 +28,7 @@ const App = ({ settings: { atms, cities, branches, types, defaultAtmF, defaultAt
     return (
         <Fragment>
             {
-                loadingSettings || loadingForecasts === null || loadingForecasts || loadingForecasts === null || loadingHistorical || loadingHistorical === null || loadingCash || loadingCash === null ?
+                loadingSettings || loadingLocations === null || loadingForecasts === null || loadingForecasts || loadingForecasts === null || loadingHistorical || loadingHistorical === null || loadingCash || loadingCash === null ?
                     <div role="status" className='grid h-screen place-items-center'>
                         <svg className="inline mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-400 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -36,10 +39,10 @@ const App = ({ settings: { atms, cities, branches, types, defaultAtmF, defaultAt
                     <Fragment>
 
                         <Navbar />
-                        <Header atms={atms} cities={cities} branches={branches} types={types} from={from} until={until}
-                            filterForecasts={filterForecasts} filterHistorical={filterHistorical} defaultAtmF={defaultAtmF}
-                            defaultAtmH={defaultAtmH} defaultAtmC={defaultAtmC} filterCash={filterCash} loadingF={loadingF}
-                            loadingH={loadingH} loadingC={loadingC} error={error} fromCash={fromCash} untilCash={untilCash} />
+                        <Header atms={atms} cities={cities} branches={branches} types={types} from={from} until={until} defaultAtmL={defaultAtmL}
+                            filterForecasts={filterForecasts} filterHistorical={filterHistorical} defaultAtmF={defaultAtmF} filterLocation={filterLocation}
+                            defaultAtmH={defaultAtmH} defaultAtmC={defaultAtmC} filterCash={filterCash} loadingF={loadingF} loadingL={loadingL}
+                            loadingH={loadingH} loadingC={loadingC} error={error} fromCash={fromCash} untilCash={untilCash} clearFilter={clearFilter} />
                         <Component {...pageProps} />
                         <Footer />
                     </Fragment>
@@ -54,10 +57,13 @@ const mapDispatchToProps = {
     filterForecasts,
     filterHistorical,
     filterCash,
+    filterLocation,
+    clearFilter,
 };
 
 
 const mapStateToProps = state => ({
+    locations: state.locations,
     forecasts: state.forecasts,
     historical: state.historical,
     cash: state.cash,

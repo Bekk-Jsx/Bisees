@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { Link as LinkScroll } from 'react-scroll'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChartLine, faFileWaveform, faWallet, faXmark, faAnglesLeft } from '@fortawesome/free-solid-svg-icons'
+import { faChartLine, faFileWaveform, faWallet, faXmark, faAnglesLeft, faMapPin } from '@fortawesome/free-solid-svg-icons'
 
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -13,11 +13,12 @@ import FilterList from './FilterList'
 import ForecastsHead from './ForecastsHead'
 import HistoricalHead from './HistoricalHead'
 import CashHead from './CashHead'
+import LocationsHead from './LocationsHead'
 
 import DisplayError from './DisplayError'
 
-
-const sections1 = [{ title: 'Forcasting', id: 'section-prediction' }, { title: 'Performance', id: 'section-performance' }, { title: 'Features', id: 'section-features' }];
+const sections0 = [{ title: 'ATM Locations', id: 'section-locations' }];
+const sections1 = [{ title: 'Forecasting', id: 'section-prediction' }, { title: 'Performance', id: 'section-performance' }, { title: 'Features', id: 'section-features' }];
 const sections2 = [{ title: 'Daily Withdrawals', id: 'section-daily' }, { title: 'Total Withdrawals', id: 'section-total' }, { title: 'Yearly Withdrawals', id: 'section-yearly' }];
 const sections3 = [{ title: 'Replenishment', id: 'section-replenishment' }];
 
@@ -25,7 +26,7 @@ const sections3 = [{ title: 'Replenishment', id: 'section-replenishment' }];
 
 
 
-const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, types, defaultAtmF, defaultAtmH, defaultAtmC, filterForecasts, filterHistorical, filterCash, loadingF, loadingH, loadingC, error }) => {
+const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, types, defaultAtmL, defaultAtmF, defaultAtmH, defaultAtmC, filterLocation, filterForecasts, filterHistorical, filterCash, clearFilter, loadingL, loadingF, loadingH, loadingC, error }) => {
 
     const router = useRouter();
     const [scrollPosition, setScrollPosition] = useState(0);
@@ -37,6 +38,11 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
     const [type, setType] = useState(defaultAtmF.LocationType);
     const [atm, setAtm] = useState(defaultAtmF.atmId);
 
+    const [cityL, setCityL] = useState(defaultAtmL.municipality);
+    const [branchL, setBranchL] = useState(defaultAtmL.responsibleBranch);
+    const [typeL, setTypeL] = useState(defaultAtmL.LocationType);
+    const [atmL, setAtmL] = useState(defaultAtmL.atmId);
+
     const [cityHis, setCityHis] = useState(defaultAtmH.municipality);
     const [branchHis, setBranchHis] = useState(defaultAtmH.responsibleBranch);
     const [typeHis, setTypeHis] = useState(defaultAtmH.LocationType);
@@ -47,7 +53,7 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
     const [typeCash, setTypeCash] = useState(defaultAtmC.LocationType);
     const [atmCash, setAtmCash] = useState(defaultAtmC.atmId);
 
-    const sections = router.pathname === '/' ? sections1 : router.pathname === '/historical' ? sections2 : router.pathname === '/cash' ? sections3 : [];
+    const sections = router.pathname === '/' ? sections0 : router.pathname === '/forecasting' ? sections1 : router.pathname === '/historical' ? sections2 : router.pathname === '/cash' ? sections3 : [];
 
     const handleScroll = () => {
         const position = window.pageYOffset;
@@ -81,7 +87,12 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
         setTypeCash(defaultAtmC.LocationType);
         setAtmCash(defaultAtmC.atmId);
 
-    }, [isOpen, defaultAtmF, defaultAtmH, defaultAtmC]);
+        setCityL(defaultAtmL.municipality);
+        setBranchL(defaultAtmL.responsibleBranch);
+        setTypeL(defaultAtmL.LocationType);
+        setAtmL(defaultAtmL.atmId);
+
+    }, [isOpen, defaultAtmL, defaultAtmF, defaultAtmH, defaultAtmC]);
 
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -102,10 +113,11 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
             <div className='drawer-header filter-header w-full flex justify-center'>
                 <div className='w-11/12 flex justify-between'>
                     <p className='filter-logo'> Filter
-                        {router.pathname === '/' ? ' Forecasting' :
-                            router.pathname === '/historical' ? ' Historical' :
-                                router.pathname === '/cash' ? ' Cash'
-                                    : ''}
+                        {router.pathname === '/' ? ' Locations' :
+                            router.pathname === '/forecasting' ? ' Forecasting' :
+                                router.pathname === '/historical' ? ' Historical' :
+                                    router.pathname === '/cash' ? ' Cash'
+                                        : ''}
                     </p>
                     <FontAwesomeIcon icon={faXmark} onClick={() => setIsOpen(!isOpen)} className='cl-primary-hover cursor-pointer' />
                 </div>
@@ -116,12 +128,14 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
             <ul className='filter-body px-4'>
 
                 {
-                    router.pathname === '/' ?
+                    router.pathname === '/forecasting' ?
                         <FilterList atms={atms} cities={cities} branches={branches} types={types} city={city} setCity={setCity} branch={branch} setBranch={setBranch} type={type} setType={setType} atm={atm} setAtm={setAtm} filterAction={filterForecasts} /> :
                         router.pathname === '/historical' ?
                             <FilterList atms={atms} cities={cities} branches={branches} types={types} city={cityHis} setCity={setCityHis} branch={branchHis} setBranch={setBranchHis} type={typeHis} setType={setTypeHis} atm={atmHis} setAtm={setAtmHis} filterAction={filterHistorical} /> :
                             router.pathname === '/cash' ?
-                                <FilterList atms={atms} cities={cities} branches={branches} types={types} city={cityCash} setCity={setCityCash} branch={branchCash} setBranch={setBranchCash} type={typeCash} setType={setTypeCash} atm={atmCash} setAtm={setAtmCash} filterAction={filterCash} /> : ''
+                                <FilterList atms={atms} cities={cities} branches={branches} types={types} city={cityCash} setCity={setCityCash} branch={branchCash} setBranch={setBranchCash} type={typeCash} setType={setTypeCash} atm={atmCash} setAtm={setAtmCash} filterAction={filterCash} /> :
+                                router.pathname === '/' ?
+                                    <FilterList atms={atms} cities={cities} branches={branches} types={types} city={cityL} setCity={setCityL} branch={branchL} setBranch={setBranchL} type={typeL} setType={setTypeL} atm={atmL} setAtm={setAtmL} filterAction={filterCash} /> : ''
                 }
 
             </ul>
@@ -142,7 +156,7 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
 
     const onFilterData = () => {
 
-        if (router.pathname === '/') {
+        if (router.pathname === '/forecasting') {
 
             filterForecasts(atm, atms);
 
@@ -154,6 +168,10 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
 
             filterCash(atmCash, fromCash, untilCash)
 
+        } else if (router.pathname === '/') {
+
+            filterLocation(atmL)
+
         }
 
         setIsOpen(false);
@@ -162,7 +180,7 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
 
     const onClearALL = () => {
 
-        if (router.pathname === '/') {
+        if (router.pathname === '/forecasting') {
 
             setCity(defaultAtmF.municipality);
             setBranch(defaultAtmF.responsibleBranch);
@@ -183,6 +201,13 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
             setTypeCash(defaultAtmC.LocationType);
             setAtmCash(defaultAtmC.atmId);
 
+        } else if (router.pathname === '/') {
+
+            setCityL(defaultAtmL.municipality);
+            setBranchL(defaultAtmL.responsibleBranch);
+            setTypeL(defaultAtmL.LocationType);
+            setAtmL(defaultAtmL.atmId);
+
         }
 
         setIsOpen(false);
@@ -194,29 +219,45 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
 
             {/* Head  */}
             <div className='w-full flex justify-center mt-8'>
+
                 <div className='w-11/12 flex justify-between'>
 
                     <div>
                         <h3 className='ft-22 font-bold tracking-tighter text-[#1c273c]'>
                             ATM code :
-                            {router.pathname === '/' ? defaultAtmF.code : router.pathname === '/historical' ? defaultAtmH.code : router.pathname === '/cash' ? defaultAtmC.code : 'Not Selected'}
+                            {
+                                router.pathname === '/' ? defaultAtmL.code :
+                                    router.pathname === '/forecasting' ? defaultAtmF.code :
+                                        router.pathname === '/historical' ? defaultAtmH.code :
+                                            router.pathname === '/cash' ? defaultAtmC.code :
+                                                'Not Selected'
+                            }
                         </h3>
                         <p className='text-sm text-slate-500'> This report is based on current ATM data. </p>
                     </div>
 
                     <div className='hidden md:flex'>
 
-                        {
-                            router.pathname === '/' ?
-                                <ForecastsHead city={city} branch={branch} atm={defaultAtmF.code} loadingF={loadingF} /> :
-                                router.pathname === '/historical' ?
-                                    <HistoricalHead city={cityHis} branch={branchHis} atm={defaultAtmH.code} loadingH={loadingH} /> :
-                                    router.pathname === '/cash' ?
-                                        <CashHead city={cityCash} branch={branchCash} atm={defaultAtmC.code} loadingC={loadingC} /> : ''
-                        }
+                        <div className='hidden lg:flex'>
+                            {
+                                router.pathname === '/forecasting' ?
+                                    <ForecastsHead city={city} branch={branch} atm={defaultAtmF.code} loadingF={loadingF} /> :
+                                    router.pathname === '/historical' ?
+                                        <HistoricalHead city={cityHis} branch={branchHis} atm={defaultAtmH.code} loadingH={loadingH} /> :
+                                        router.pathname === '/cash' ?
+                                            <CashHead city={cityCash} branch={branchCash} atm={defaultAtmC.code} loadingC={loadingC} /> :
+                                            router.pathname === '/' ?
+                                                <LocationsHead city={cityL} branch={branchL} atm={defaultAtmL.code} loadingL={loadingL} /> : ''
+                            }
+                        </div>
 
 
                         {/* Button  */}
+                        {
+                            router.pathname === '/' ?
+                                <button className='btn-head-white mt-1 mr-3' onClick={() => clearFilter()}> CLEAR </button> : ''
+                        }
+
                         <button className='btn-head mt-1' onClick={() => setIsOpen(!isOpen)}> FILTER </button>
 
 
@@ -260,14 +301,24 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
                             ))
                         }
                     </div>
-                    <div className='hidden md:flex'>
+                    <div className='hidden lg:flex'>
 
                         {
                             router.pathname === '/' ? '' :
                                 <Link href="/">
-                                    <a className={`${router.pathname === '/historical' ? '' : ''}`}>
+                                    <a>
+                                        <FontAwesomeIcon icon={faMapPin} />
+                                        Home
+                                    </a>
+                                </Link>
+                        }
+
+                        {
+                            router.pathname === '/forecasting' ? '' :
+                                <Link href="/forecasting">
+                                    <a>
                                         <FontAwesomeIcon icon={faChartLine} />
-                                        Forcasting
+                                        Forecasting
                                     </a>
                                 </Link>
                         }
@@ -276,7 +327,7 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
                         {
                             router.pathname === '/historical' ? '' :
                                 <Link href="/historical">
-                                    <a className={`${router.pathname === '/historical' ? '' : ''}`}>
+                                    <a>
                                         <FontAwesomeIcon icon={faFileWaveform} />
                                         Historical Analysis
                                     </a>
@@ -287,7 +338,7 @@ const Header = ({ atms, cities, branches, from, until, fromCash, untilCash, type
                         {
                             router.pathname === '/cash' ? '' :
                                 <Link href="/cash">
-                                    <a className={`${router.pathname === '/cash' ? '' : ''}`}>
+                                    <a >
                                         <FontAwesomeIcon icon={faWallet} />
                                         Cash Management
                                     </a>

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChartLine, faFileWaveform, faWallet, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faChartLine, faFileWaveform, faWallet, faXmark, faMapPin } from '@fortawesome/free-solid-svg-icons'
 
 
 import Drawer from '@mui/material/Drawer';
@@ -46,8 +46,15 @@ const Navbar = () => {
 
                 <Link href="/">
                     <a className={`mr-4 nav-link ${router.pathname === '/' ? 'drawer-current-nav' : ''}`}>
+                        <FontAwesomeIcon icon={faMapPin} />
+                        Home
+                    </a>
+                </Link>
+
+                <Link href="/forecasting">
+                    <a className={`mr-4 nav-link ${router.pathname === '/forecasting' ? 'drawer-current-nav' : ''}`}>
                         <FontAwesomeIcon icon={faChartLine} />
-                        Forcasting
+                        Forecasting
                     </a>
                 </Link>
 
@@ -75,7 +82,7 @@ const Navbar = () => {
         <div className='Navbar w-full flex justify-center bg-white'>
             <div className='w-11/12 flex justify-between'>
 
-                <svg className="block md:hidden nav-svg-icon cl-primary-hover cursor-pointer" onClick={() => setIsOpen(true)} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M916.6 210.2H107.4c-17.7 0-32-14.3-32-32s14.3-32 32-32h809.2c17.7 0 32 14.3 32 32s-14.3 32-32 32zM714.3 544H107.4c-17.7 0-32-14.3-32-32s14.3-32 32-32h606.9c17.7 0 32 14.3 32 32s-14.3 32-32 32zM916.6 877.8H107.4c-17.7 0-32-14.3-32-32s14.3-32 32-32h809.2c17.7 0 32 14.3 32 32s-14.3 32-32 32z" /></svg>
+                <svg className="block lg:hidden nav-svg-icon cl-primary-hover cursor-pointer" onClick={() => setIsOpen(true)} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M916.6 210.2H107.4c-17.7 0-32-14.3-32-32s14.3-32 32-32h809.2c17.7 0 32 14.3 32 32s-14.3 32-32 32zM714.3 544H107.4c-17.7 0-32-14.3-32-32s14.3-32 32-32h606.9c17.7 0 32 14.3 32 32s-14.3 32-32 32zM916.6 877.8H107.4c-17.7 0-32-14.3-32-32s14.3-32 32-32h809.2c17.7 0 32 14.3 32 32s-14.3 32-32 32z" /></svg>
 
                 <div className='nav-logo' >
                     {
@@ -87,12 +94,19 @@ const Navbar = () => {
                     }
                 </div>
 
-                <ul className='hidden md:flex'>
+                <ul className='hidden lg:flex'>
 
                     <Link href="/">
                         <a className={`py-4 mr-4 nav-link nav-link-fade-up ${router.pathname === '/' ? 'current-nav' : ''}`}>
+                            <FontAwesomeIcon icon={faMapPin} />
+                            Home
+                        </a>
+                    </Link>
+
+                    <Link href="/forecasting">
+                        <a className={`py-4 mr-4 nav-link nav-link-fade-up ${router.pathname === '/forecasting' ? 'current-nav' : ''}`}>
                             <FontAwesomeIcon icon={faChartLine} />
-                            Forcasting
+                            Forecasting
                         </a>
                     </Link>
 

@@ -60,14 +60,14 @@ const Yearly = ({ currentYearly, currentTopAtmsByWithdr, defaultAtmH }) => {
     return (
         <div className="w-full flex justify-center mt-8" id='section-yearly'>
             <div className='w-11/12 flex flex-col lg:flex-row justify-between gap-7'>
-                <div className="w-full lg:w-1/2 card-border line-total">
+                <div className="w-full lg:w-1/2 card-border line-total overflow-y-hidden overflow-x-auto md:overflow-x-hidden">
 
-                    <div className='mb-5 lg:mb-auto'>
+                    <div className='mb-5 lg:mb-auto lg:mb-auto min-w-[500px] md:min-w-[0px]'>
                         <h3 className='ml-5 font-bold text-[#1c273c] text-lg'> Top 5 ATMs by Withdrawal Amount in the last 365-Day </h3>
                         <p className='ml-5 mt-2 text-sm text-slate-500'> Atms that got more Withdrawal Amount. </p>
                     </div>
 
-                    <div className='h-[450px] mt-5'>
+                    <div className='h-[450px] mt-5 lg:mb-auto min-w-[500px] md:min-w-[0px]'>
                         <ResponsiveContainer width="100%" height="100%">
                             <ComposedChart
                                 layout="vertical"

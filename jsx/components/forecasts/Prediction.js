@@ -54,14 +54,14 @@ const Prediction = ({ current, total, data, defaultAtmF }) => {
                     }
 
                 </div>
-                <div className='w-full lg:w-2/3 card-border'>
+                <div className='w-full lg:w-2/3 card-border overflow-y-hidden overflow-x-auto md:overflow-x-hidden'>
 
-                    <div className='h-1/6 mb-5 lg:mb-auto'>
+                    <div className='h-1/6 mb-5 lg:mb-auto min-w-[600px] md:min-w-[0px]'>
                         <h3 className='ml-5 font-bold text-[#1c273c] text-lg'> The next 7-Day Forecasting - ATM code : {defaultAtmF.code}</h3>
                         <p className='ml-5 mt-2 text-sm text-slate-500'> This Prediction Views report is based on current Atm. </p>
                     </div>
 
-                    <div className='h-5/6'>
+                    <div className='h-5/6 min-w-[600px] md:min-w-[0px]'>
                         <ResponsiveContainer width="100%" height="100%">
                             <ComposedChart
                                 width={500}
